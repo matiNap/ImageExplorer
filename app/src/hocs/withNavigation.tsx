@@ -4,7 +4,7 @@ import Drawer from "../components/Drawer";
 
 export default (HigerComponent: React.ComponentType<any>) => {
   return (props) => {
-    const [hidden, setHidden] = useState(true);
+    const [hidden, setHidden] = useState(false);
     return (
       <div>
         <Header {...{ setHidden }} />

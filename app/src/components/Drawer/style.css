@@ -15,19 +15,32 @@
   .drawer-list {
     list-style-type: none;
     margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    height: 85vh;
   }
 
   .drawer-list-item {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
-    font-size: 1.2rem !important;
+    font-size: 1.5rem !important;
+  }
+
+  .drawer-footer {
+    display: flex;
+    align-items: center;
+    margin-top: auto;
+    margin-bottom: auto;
   }
 
   .drawer-header {
     margin-top: 2rem;
     margin-right: 2rem;
+    margin-right: 2rem;
     display: flex;
-    justify-content: flex-end;
+    flex-direction: row;
+    justify-content: space-between;
   }
 
   .drawer-hide-icon {
@@ -37,6 +50,7 @@
   .drawer-content {
     width: 60vw;
     height: 100vh;
+    padding-left: 2rem;
   }
 
   .drawer-nav-link {
