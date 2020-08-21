@@ -1,0 +1,45 @@
+@media only screen and (min-width: 800px) {
+  .drawer-container {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .drawer-container {
+    height: 100vh;
+    width: 60vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+  .drawer-list {
+    list-style-type: none;
+    margin-top: 2rem;
+  }
+
+  .drawer-list-item {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem !important;
+  }
+
+  .drawer-header {
+    margin-top: 2rem;
+    margin-right: 2rem;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .drawer-hide-icon {
+    cursor: pointer;
+  }
+
+  .drawer-content {
+    width: 60vw;
+    height: 100vh;
+  }
+
+  .drawer-nav-link {
+    font-size: 1.6rem;
+  }
+}
