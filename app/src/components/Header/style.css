@@ -27,12 +27,13 @@
   }
 
   .search-input {
-    width: 25rem;
+    width: 25vw;
     margin-left: 0.8rem;
     font-family: Roboto;
     background-color: transparent;
     font-size: 1rem;
     border: 0px;
+    outline: none;
   }
 
   .header-menu-icon {

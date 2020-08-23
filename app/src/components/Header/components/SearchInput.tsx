@@ -6,7 +6,7 @@ export default () => {
   const { palette } = useTheme();
   return (
     <div className="search-input-container">
-      <FiSearch size={31} color={palette.text.primary} />
+      <FiSearch size={31} color={palette.text.primary} type="text" />
       <input
         style={{ color: palette.text.primary }}
         type="search"
