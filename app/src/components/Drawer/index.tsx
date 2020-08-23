@@ -5,10 +5,10 @@ import { GoChevronLeft } from "react-icons/go";
 import "./style.css";
 import { SwipeableDrawer, Avatar } from "@material-ui/core";
 import NavigationLink from "../NavigationLink";
-import { MAIN } from "../../navRoutes";
-import SignInButton from "../SignInButton";
-import GuestButton from "../GuestButton";
-import { FiLogOut } from "react-icons/fi";
+import { MAIN, TOPICS } from "../../navRoutes";
+// import SignInButton from "../SignInButton";
+// import GuestButton from "../GuestButton";
+// import { FiLogOut } from "react-icons/fi";
 
 interface Props {
   hidden: boolean;
@@ -54,11 +54,11 @@ export default ({ hidden, setHidden }: Props) => {
               </NavigationLink>
             </li>
             <li>
-              <NavigationLink to="./topics" className="drawer-list-item">
+              <NavigationLink to={TOPICS} className="drawer-list-item">
                 Topics
               </NavigationLink>
             </li>
-            <li style={{ marginTop: "auto" }}>
+            {/* <li style={{ marginTop: "auto" }}>
               {signedIn ? (
                 <div className="drawer-footer">
                   <FiLogOut size={35} style={{ color: palette.text.primary }} />
@@ -70,7 +70,7 @@ export default ({ hidden, setHidden }: Props) => {
                   <GuestButton />
                 </div>
               )}
-            </li>
+            </li> */}
           </ul>
         </div>
       </SwipeableDrawer>
