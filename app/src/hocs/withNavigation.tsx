@@ -6,7 +6,7 @@ export default (HigerComponent: React.ComponentType<any>) => {
   return (props) => {
     const [hidden, setHidden] = useState(true);
     return (
-      <div>
+      <div style={{ display: "flex", flexDirection: "column" }}>
         <Header {...{ setHidden }} />
         <Drawer {...{ setHidden, hidden }} />
         <HigerComponent {...props} />

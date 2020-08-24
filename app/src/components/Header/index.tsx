@@ -20,7 +20,7 @@ export default ({ setHidden }: Props) => {
   return (
     <div
       className="header-container"
-      style={{ backgroundColor: palette.secondary.dark }}
+      style={{ backgroundColor: palette.secondary.main }}
     >
       <Logo />
       <SearchInput />
