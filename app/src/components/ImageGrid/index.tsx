@@ -2,6 +2,7 @@ import React from "react";
 import { Image } from "../../types";
 import "./style.css";
 import { CircularProgress } from "@material-ui/core";
+import Info from "./components/Info";
 
 interface Props {
   loadImages: () => void;
@@ -25,15 +26,25 @@ export default class ImageGrid extends React.Component<Props> {
 
   renderColumn = (images: Image[]) => {
     return images.map((data, index) => {
-      const { urls } = data;
+      const {
+        urls,
+        user,
+        links: { download },
+      } = data;
+      const { username, profile_image } = user;
       return (
-        <figure
+        <div
           className="cell-container"
           key={`data.id${index}`}
           ref={images.length / 2 === index ? this.callObserver : null}
         >
           <img src={urls.regular} alt={"test"} className="cell-image" />
-        </figure>
+          <Info
+            avatarUri={profile_image.small}
+            downloadUri={download}
+            username={username}
+          />
+        </div>
       );
     });
   };
