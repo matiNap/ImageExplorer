@@ -4,10 +4,8 @@ import { fetchLatestImages } from "../../reducers/appReducer";
 import ImageGrid from "../../components/ImageGrid";
 import { selectLatestImages } from "../../selectors/app";
 import "./style.css";
-import { useTheme } from "@material-ui/core";
 
 export default () => {
-  const theme = useTheme();
   const dispatch = useDispatch();
   const { images, loading } = useSelector(selectLatestImages);
   return (

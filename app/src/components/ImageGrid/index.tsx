@@ -81,7 +81,7 @@ export default class ImageGrid extends React.Component<Props> {
             <div className="image-grid-column">{this.renderColumn(col1)}</div>
             <div className="image-grid-column">{this.renderColumn(col2)}</div>
             <div className="image-grid-column">{this.renderColumn(col3)}</div>
-            {true && (
+            {loading && (
               <div className="image-grid-loading-container">
                 <CircularProgress color="primary" size={25} />
               </div>

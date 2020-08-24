@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  Avatar,
-  useTheme,
-  Typography,
-  Button,
-  IconButton,
-} from "@material-ui/core";
+import { Avatar, useTheme, Typography, IconButton } from "@material-ui/core";
 import { FiDownload } from "react-icons/fi";
 
 interface Props {
