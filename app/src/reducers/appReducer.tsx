@@ -1,6 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 // import { RootState, AppThunk } from "../store";
 import { REHYDRATE } from "redux-persist/es/constants";
+import { Image } from "../types";
+import { AppThunk } from "../store";
+import unsplash from "../apis/unsplash";
 
 interface User {
   acces_token: string;
@@ -9,16 +12,41 @@ interface User {
   created_at: number;
 }
 
+const IMAGES_PER_PAGE = 30;
+interface ImageLoader {
+  images: Image[] | null;
+  page: number;
+  loading: boolean;
+  error: boolean;
+}
+
 const INIT_STATE: {
-  user: User | null;
+  latestImages: ImageLoader;
 } = {
-  user: null,
+  latestImages: {
+    images: null,
+    page: 1,
+    loading: false,
+    error: false,
+  },
 };
 
 const appSlice = createSlice({
   name: "app",
   initialState: INIT_STATE,
-  reducers: {},
+  reducers: {
+    setLatestImages: (state, action) => {
+      const latestImages = state.latestImages.images
+        ? state.latestImages.images
+        : [];
+      const payloadImages = action.payload.images ? action.payload.images : [];
+      state.latestImages = {
+        ...state.latestImages,
+        ...action.payload,
+        images: [...latestImages, ...payloadImages],
+      };
+    },
+  },
   extraReducers: {
     [REHYDRATE]: (state) => {
       return { ...state };
@@ -26,4 +54,32 @@ const appSlice = createSlice({
   },
 });
 
+const { setLatestImages } = appSlice.actions;
+
 export default appSlice.reducer;
+
+export const fetchLatestImages = (): AppThunk => async (dispatch, getState) => {
+  const state = getState();
+
+  try {
+    dispatch(setLatestImages({ loading: true }));
+    const { page } = state.app.latestImages;
+    const { data } = await unsplash.get("/photos", {
+      params: {
+        page,
+        per_page: IMAGES_PER_PAGE,
+      },
+    });
+
+    dispatch(
+      setLatestImages({
+        images: data,
+        page: page + 1,
+        per_page: 15,
+        loading: false,
+      })
+    );
+  } catch (error) {
+    dispatch(setLatestImages({ error: true }));
+  }
+};

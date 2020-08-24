@@ -1,23 +1,21 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchLatestImages } from "../../reducers/appReducer";
+import ImageGrid from "../../components/ImageGrid";
+import { selectLatestImages } from "../../selectors/app";
+import "./style.css";
 
 export default () => {
+  const dispatch = useDispatch();
+  const { images, loading } = useSelector(selectLatestImages);
   return (
-    <div>
-      {/* <Button variant="contained" color="primary">
-        Main
-      </Button>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam et
-        mollis justo. In in maximus urna. Pellentesque habitant morbi tristique
-        senectus et netus et malesuada fames ac turpis egestas. Sed nec bibendum
-        lacus. Vivamus sollicitudin cursus mattis. In molestie nulla in ex
-        hendrerit, eget porttitor lorem consequat. Quisque bibendum enim vitae
-        ligula cursus, vitae tempus eros tempus. Fusce aliquet id tellus non
-        consectetur. Praesent rhoncus placerat leo in mollis. Pellentesque
-        vestibulum sem sed consectetur convallis. In ac orci urna. Vestibulum
-        bibendum mi sed velit vehicula efficitur. Aenean tincidunt nisl augue,
-        ut lobortis ex pretium ac.
-      </p> */}
+    <div className="main-container">
+      <ImageGrid
+        loadImages={() => {
+          dispatch(fetchLatestImages());
+        }}
+        {...{ images, loading }}
+      />
     </div>
   );
 };

@@ -1,0 +1,7 @@
+.main-container {
+  margin-top: 1rem;
+  min-height: 80vh;
+  display: flex;
+  width: 86vw;
+  align-self: center;
+}

@@ -6,12 +6,11 @@ export default createMuiTheme({
       main: "#3E92CC",
     },
     secondary: {
-      main: "#1E1E24",
-      light: "#292930",
+      main: "#FFFFFA",
     },
     text: {
-      primary: "#f2f2f2",
-      secondary: "#2f2f2f",
+      primary: "#2f2f2f",
+      secondary: "#f2f2f2",
     },
   },
   typography: {
