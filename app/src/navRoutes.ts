@@ -1,3 +1,4 @@
 export const MAIN = "/image-explorer";
-export const SEARCH = "/search";
-export const TOPICS = "/topics";
+export const SEARCH = `${MAIN}/search`;
+export const TOPICS = `${MAIN}/topics`;
+export const PROFILE = `${MAIN}/profile`;

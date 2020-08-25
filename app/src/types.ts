@@ -12,6 +12,8 @@ export interface User {
   };
   instagram_username: string;
   twitter_username: string;
+  total_likes: number;
+  total_photos: number;
 }
 
 export interface Image {

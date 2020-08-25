@@ -5,3 +5,23 @@ body {
   background-color: #fffffa;
   color: #2f2f2f;
 }
+
+a {
+  text-decoration-line: none;
+}
+
+a:link {
+  color: #2f2f2f;
+}
+
+a:visited {
+  color: #2f2f2f;
+}
+
+a:hover {
+  color: #2f2f2f;
+}
+
+a:active {
+  color: #2f2f2f;
+}
