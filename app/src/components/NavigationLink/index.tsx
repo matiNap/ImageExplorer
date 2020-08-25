@@ -18,7 +18,7 @@ export default ({ to, children, className }: Props) => {
       {...{ to }}
       style={{
         color: Boolean(selected) ? palette.primary.main : palette.text.primary,
-        fontWeight: selected ? "bold" : "400",
+        fontWeight: selected ? "bold" : "unset",
       }}
       className={`navigation-link ${className ? className : ""}`}
     >

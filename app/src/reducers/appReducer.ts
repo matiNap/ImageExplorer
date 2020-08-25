@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import { RootState, AppThunk } from "../store";
-import { REHYDRATE } from "redux-persist/es/constants";
 import { Image } from "../types";
 import { AppThunk } from "../store";
 import unsplash from "../apis/unsplash";
@@ -45,11 +43,6 @@ const appSlice = createSlice({
         ...action.payload,
         images: [...latestImages, ...payloadImages],
       };
-    },
-  },
-  extraReducers: {
-    [REHYDRATE]: (state) => {
-      return { ...state };
     },
   },
 });

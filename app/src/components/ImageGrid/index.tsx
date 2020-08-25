@@ -8,6 +8,7 @@ interface Props {
   loadImages: () => void;
   images: Image[] | null;
   loading: boolean;
+  isProfile?: boolean;
 }
 
 interface RefObject<T> {
@@ -30,6 +31,7 @@ export default class ImageGrid extends React.Component<Props> {
         urls,
         user,
         links: { download },
+        likes,
       } = data;
       const { username, profile_image } = user;
       return (
@@ -40,6 +42,8 @@ export default class ImageGrid extends React.Component<Props> {
         >
           <img src={urls.regular} alt={"test"} className="cell-image" />
           <Info
+            likes={likes}
+            isProfile={this.props.isProfile}
             avatarUri={profile_image.small}
             downloadUri={download}
             username={username}

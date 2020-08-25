@@ -18,3 +18,5 @@ export default createMuiTheme({
     fontSize: 16,
   },
 });
+
+export const DISABLED = "rgba(0,0,0,0.3)";

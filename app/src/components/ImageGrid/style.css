@@ -76,7 +76,17 @@
 
 .info-footer {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+}
+
+.info-likes {
+  margin-left: 0.5rem;
+}
+
+.info-rate {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .image-grid-progress {
