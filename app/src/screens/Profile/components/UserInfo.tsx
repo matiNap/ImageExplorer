@@ -6,11 +6,12 @@ import { Avatar } from "@material-ui/core";
 import { FiMapPin, FiInstagram, FiTwitter } from "react-icons/fi";
 import { DISABLED } from "../../../theme";
 import Stats from "./Stats";
+import UserInfoPlaceholder from "./UserInfoPlaceholder";
 
 export default () => {
   const { user, loading } = useSelector(selectUser);
   const { palette } = useTheme();
-
+  // return <UserInfoPlaceholder />;
   if (!loading && user) {
     const {
       location,
@@ -75,5 +76,5 @@ export default () => {
         </div>
       </div>
     );
-  } else return <div>Loading</div>;
+  } else return <UserInfoPlaceholder />;
 };
