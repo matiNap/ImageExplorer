@@ -1,18 +1,17 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchLatestImages } from "../../reducers/appReducer";
+import React, { useState } from "react";
 import ImageGrid from "../../components/ImageGrid";
-import { selectLatestImages } from "../../selectors/app";
 import Container from "../../components/Container";
+import useLatestImages from "../../hooks/useLatestImages";
 
 export default () => {
-  const dispatch = useDispatch();
-  const { images, loading } = useSelector(selectLatestImages);
+  const [page, setPage] = useState(0);
+  const { loading, images } = useLatestImages(page);
+  console.log(images);
   return (
     <Container>
       <ImageGrid
         loadImages={() => {
-          dispatch(fetchLatestImages());
+          setPage(page + 1);
         }}
         {...{ images, loading }}
       />

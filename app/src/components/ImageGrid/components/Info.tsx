@@ -1,3 +1,5 @@
+/* eslint react/jsx-no-target-blank: 0 */
+
 import React from "react";
 import { Avatar, useTheme, Typography, IconButton } from "@material-ui/core";
 import { FiDownload, FiHeart } from "react-icons/fi";
@@ -48,7 +50,7 @@ export default ({
               </div>
             )}
           </div>
-          <a href={downloadUri}>
+          <a href={downloadUri} target="_blank">
             <IconButton aria-label="download" className="info-download">
               <FiDownload color={palette.text.secondary} />
             </IconButton>

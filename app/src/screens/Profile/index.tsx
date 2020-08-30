@@ -1,10 +1,10 @@
 import React from "react";
-import { fetchUser } from "../../reducers/userReducer";
-import { connect } from "react-redux";
 import UserInfo from "./components/UserInfo";
 import "./style.css";
 import Container from "../../components/Container";
 import UserPhotos from "./components/UserPhotos";
+import { fetchUserData } from "../../apis/unsplash";
+import { User } from "../../types";
 
 interface Props {
   match: {
@@ -15,7 +15,16 @@ interface Props {
   fetchUser: any;
 }
 
-class Profile extends React.Component<Props> {
+interface State {
+  loading: boolean;
+  user: User | null;
+}
+
+class Profile extends React.Component<Props, State> {
+  state = {
+    user: null,
+    loading: true,
+  };
   componentDidMount() {
     const {
       match: {
@@ -23,7 +32,9 @@ class Profile extends React.Component<Props> {
       },
     } = this.props;
 
-    this.props.fetchUser(userId);
+    fetchUserData(userId).then(({ data }) => {
+      this.setState({ user: data, loading: false });
+    });
   }
   render() {
     const {
@@ -31,13 +42,14 @@ class Profile extends React.Component<Props> {
         params: { userId },
       },
     } = this.props;
+    const { user, loading } = this.state;
     return (
       <Container>
-        <UserInfo />
+        <UserInfo {...{ user, loading }} />
         <UserPhotos {...{ userId }} />
       </Container>
     );
   }
 }
 
-export default connect(null, { fetchUser })(Profile);
+export default Profile;

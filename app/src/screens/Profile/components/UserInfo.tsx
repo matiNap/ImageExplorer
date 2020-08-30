@@ -1,17 +1,19 @@
 import React from "react";
-import { selectUser } from "../../../selectors/user";
-import { useSelector } from "react-redux";
 import { useTheme } from "@material-ui/styles";
 import { Avatar } from "@material-ui/core";
 import { FiMapPin, FiInstagram, FiTwitter } from "react-icons/fi";
 import { DISABLED } from "../../../theme";
 import Stats from "./Stats";
 import UserInfoPlaceholder from "./UserInfoPlaceholder";
+import { User } from "../../../types";
 
-export default () => {
-  const { user, loading } = useSelector(selectUser);
+interface Props {
+  user: User | null;
+  loading: boolean;
+}
+
+export default ({ user, loading }: Props) => {
   const { palette } = useTheme();
-  // return <UserInfoPlaceholder />;
   if (!loading && user) {
     const {
       location,

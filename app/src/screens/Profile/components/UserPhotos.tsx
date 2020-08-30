@@ -1,24 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import ImageGrid from "../../../components/ImageGrid";
-import { useSelector, useDispatch } from "react-redux";
-import { selectPhotos } from "../../../selectors/user";
-import { fetchPhotos } from "../../../reducers/userReducer";
+import useUserPhotos from "../../../hooks/useUserPhotos";
 
 interface Props {
   userId: string;
 }
 
 export default ({ userId }: Props) => {
-  const { images, loading } = useSelector(selectPhotos);
-  const dispatch = useDispatch();
+  const [page, setPage] = useState(0);
+  const { images, loading } = useUserPhotos(userId, page);
   return (
     <div>
       <ImageGrid
         isProfile
         {...{ images, loading }}
-        loadImages={() => {
-          dispatch(fetchPhotos(userId));
-        }}
+        loadImages={() => setPage(page + 1)}
       />
     </div>
   );

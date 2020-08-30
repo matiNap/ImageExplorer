@@ -1,5 +1,6 @@
 export interface User {
   username: string;
+
   first_name: string;
   last_name: string;
   id: string;
@@ -19,6 +20,7 @@ export interface User {
 export interface Image {
   id: string;
   uri: string;
+  color: string;
   created_at: string;
   description: string;
   likes: number;
@@ -34,4 +36,6 @@ export interface Image {
     small: string;
     thumb: string;
   };
+  height: number;
+  width: number;
 }

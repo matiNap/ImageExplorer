@@ -3,16 +3,34 @@
 }
 
 .image-grid {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  padding: 0 4px;
+  /* margin: 1.5em auto;
+  column-gap: 1.5em;
+  column-count: 3; */
+  display: grid;
+  grid-template-columns: auto auto auto;
 }
 
 .cell-image {
   vertical-align: middle;
   width: 100%;
+  min-height: 300px;
+}
+
+.my-masonry-grid {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: -30px;
+  width: auto;
+}
+.my-masonry-grid_column {
+  padding-left: 30px; /* gutter size */
+  background-clip: padding-box;
+}
+
+.my-masonry-grid_column > div {
+  background: grey;
+  margin-bottom: 30px;
 }
 
 .cell-container {
@@ -20,6 +38,7 @@
   position: relative;
   border-radius: 12px;
   overflow: hidden;
+  height: fit-content;
   -webkit-box-shadow: 0px 0px 26px -10px rgba(0, 0, 0, 0.66);
   -moz-box-shadow: 0px 0px 26px -10px rgba(0, 0, 0, 0.66);
   box-shadow: 0px 0px 26px -10px rgba(0, 0, 0, 0.66);
@@ -95,6 +114,14 @@
   justify-content: center;
   flex: 1;
   align-self: center;
+}
+
+.image-placeholder-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 @media only screen and (min-width: 800px) {
