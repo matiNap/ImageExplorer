@@ -3,10 +3,11 @@ import { Image } from "../../types";
 import "./style.css";
 import { CircularProgress } from "@material-ui/core";
 import ImageCell from "./components/ImageCell";
+import Masonry from "react-masonry-css";
 
 interface Props {
   loadImages: () => void;
-  images: Image[] | null;
+  images: Image[] | any[] | null;
   loading: boolean;
   isProfile?: boolean;
 }
@@ -43,7 +44,9 @@ export default class ImageGrid extends React.Component<Props> {
     if (loading) return;
     if (this.observer.current) this.observer.current.disconnect();
     this.observer.current = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) this.props.loadImages();
+      if (entries[0].isIntersecting) {
+        this.props.loadImages();
+      }
     });
 
     if (node) this.observer.current.observe(node);
@@ -55,7 +58,13 @@ export default class ImageGrid extends React.Component<Props> {
     if (images) {
       return (
         <div className="imager-grid-container">
-          <div className="image-grid">{this.renderColumn(images)}</div>
+          <Masonry
+            breakpointCols={{ default: 3, "800": 1 }}
+            className="my-masonry-grid"
+            columnClassName="my-masonry-grid_column"
+          >
+            {this.renderColumn(images)}
+          </Masonry>
           {loading && (
             <div className="image-grid-loading-container">
               <CircularProgress color="primary" size={25} />

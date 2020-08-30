@@ -18,16 +18,19 @@ export default ({ data, observerRef, isProfile }: Props) => {
     likes,
     color,
     description,
+    width,
+    height,
   } = data;
   const { username, profile_image } = user;
   const [isLoaded, setIsLoaded] = useState(false);
+  const imageHeight = height >= width ? "460px" : "300px";
   return (
     <div className="cell-container" ref={observerRef}>
       <img
         onLoad={() => {
           setIsLoaded(true);
         }}
-        style={{ backgroundColor: color }}
+        style={{ backgroundColor: color, minHeight: imageHeight }}
         src={urls.regular}
         alt={description}
         className="cell-image"

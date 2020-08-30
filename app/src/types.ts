@@ -36,4 +36,6 @@ export interface Image {
     small: string;
     thumb: string;
   };
+  height: number;
+  width: number;
 }
