@@ -29,4 +29,8 @@ export const fetchSimilarImages = (color: string, query: string) => {
   });
 };
 
+export const fetchPhoto = (imageId: string) => {
+  return unsplash.get(`photos/${imageId}`);
+};
+
 export default unsplash;

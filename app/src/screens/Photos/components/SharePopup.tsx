@@ -16,7 +16,7 @@ export default () => {
               style={{ backgroundColor: palette.primary.main }}
               className="share-popup"
             >
-              <Typography color="secondary">Copied URL!</Typography>
+              <Typography color="secondary">Copied URL</Typography>
             </Paper>
           </Fade>
         )}

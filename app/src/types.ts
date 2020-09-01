@@ -39,3 +39,22 @@ export interface Image {
   height: number;
   width: number;
 }
+
+export interface SingleImage extends Image {
+  exif: {
+    make: string;
+    model: string;
+    exposure_time: string;
+    aperture: string;
+    focal_length: string;
+    iso: number;
+  };
+  location: {
+    city: string;
+    country: string;
+    position: {
+      latitude: number;
+      longitude: number;
+    };
+  };
+}

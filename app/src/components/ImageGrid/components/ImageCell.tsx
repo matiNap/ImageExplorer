@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import ImagePlaceholder from "./ImagePlaceholder";
 import Info from "./Info";
 import { Image } from "../../../types";
+import { useDispatch } from "react-redux";
+import { setSelectedImages } from "../../../reducers/appReducer";
 
 interface Props {
   observerRef: React.Ref<any> | null;
@@ -20,12 +22,20 @@ export default ({ data, observerRef, isProfile }: Props) => {
     description,
     width,
     height,
+    id,
   } = data;
   const { username, profile_image } = user;
   const [isLoaded, setIsLoaded] = useState(false);
   const imageHeight = height >= width ? "460px" : "300px";
+  const dispatch = useDispatch();
   return (
-    <div className="cell-container" ref={observerRef}>
+    <div
+      className="cell-container"
+      ref={observerRef}
+      onClick={() => {
+        dispatch(setSelectedImages({ images: [], currentImageId: id }));
+      }}
+    >
       <img
         onLoad={() => {
           setIsLoaded(true);
