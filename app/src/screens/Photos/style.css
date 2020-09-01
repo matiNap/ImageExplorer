@@ -91,10 +91,32 @@
   height: 3.2rem !important;
 }
 
-.info-dialog-container {
+.info-dialog-content {
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
+}
+
+.info-content-grid {
+  display: grid;
+  /* width: 60vw; */
+  grid-template-columns: 33% 33% 33%;
+  padding-bottom: 1.5rem;
+}
+
+.info-dialog-label-container {
+  margin: 1rem 2rem 0.5rem 2rem;
+  min-width: 10rem;
+}
+
+.info-dialog-label-data {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.info-dialog-subtitle {
+  font-size: 0.92rem;
 }
 
 @media only screen and (min-width: 800px) {
@@ -109,11 +131,13 @@
     max-height: 100vh;
   }
 
-  .info-paper {
+  .info-container-bg {
     display: flex;
     width: 45vw;
     height: 50vh;
     align-self: center;
+    border-width: 0;
+    box-shadow: none !important;
   }
 }
 
