@@ -9,7 +9,6 @@ export default (color: string, query: string) => {
   useEffect(() => {
     fetchSimilarImages(color, query)
       .then(({ data }) => {
-        console.log(data);
         setLoading(false);
         setSimilarImages(data.results);
       })
@@ -18,5 +17,5 @@ export default (color: string, query: string) => {
       });
   }, [color, query]);
 
-  return { similarImages, loading };
+  return { similarImages, loading, error };
 };

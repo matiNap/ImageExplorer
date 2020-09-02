@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
 import Main from "./screens/Main";
 import { ThemeProvider } from "@material-ui/core";
 import { MAIN, TOPICS, SEARCH, PROFILE, PHOTOS } from "./navRoutes";
@@ -11,12 +11,13 @@ import Profile from "./screens/Profile";
 import Photos from "./screens/Photos";
 import { Provider } from "react-redux";
 import store from "../src/store";
+import history from "./history";
 
 export default () => {
   return (
     <Provider {...{ store }}>
       <ThemeProvider theme={theme}>
-        <Router>
+        <Router history={history}>
           <Switch>
             <Route exact path={MAIN} component={withNavigation(Main)} />
             <Route

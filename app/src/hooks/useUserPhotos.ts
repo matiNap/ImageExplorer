@@ -13,7 +13,6 @@ export default (userId: string, page: number) => {
     fetchUserPhotos(userId, page)
       .then(({ data }) => {
         const prevImages = images ? images : [];
-        console.log(data);
         setLoading(false);
         setImages([...prevImages, ...data]);
       })

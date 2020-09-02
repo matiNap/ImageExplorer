@@ -6,14 +6,16 @@ import ImageLookup from "./ImageLookup";
 import SharePopup from "./SharePopup";
 import InfoDialog from "./InfoDialog";
 import { connect } from "react-redux";
-import { fetchCurrentImages } from "../../../reducers/appReducer";
+import { fetchCurrentImage, nextImage } from "../../../reducers/appReducer";
 import { RootState } from "../../../store";
 import { SingleImage } from "../../../types";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 interface Props {
-  fetchCurrentImages: any;
+  fetchCurrentImage: any;
   theme: Theme;
   photoId: string;
+  nextImage: any;
   currentImage: {
     loading: boolean;
     error: boolean;
@@ -26,12 +28,11 @@ class Lookup extends React.Component<Props> {
   };
   componentDidMount() {
     const { photoId } = this.props;
-    this.props.fetchCurrentImages(photoId);
+    this.props.fetchCurrentImage(photoId);
   }
   render() {
     const { infoOpened } = this.state;
     const { palette } = this.props.theme;
-    console.log(this.props.currentImage);
     const { data, loading, error } = this.props.currentImage;
     if (data && !loading) {
       const {
@@ -42,6 +43,19 @@ class Lookup extends React.Component<Props> {
       const { profile_image } = user;
       return (
         <div className="lookup-container">
+          <FiChevronLeft
+            size={45}
+            className="lookup-next-image"
+            color={palette.text.primary}
+          />
+          <FiChevronRight
+            onClick={() => {
+              this.props.nextImage();
+            }}
+            size={45}
+            className="lookup-prev-image"
+            color={palette.text.primary}
+          />
           <UserAvatar
             name={user.name}
             username={user.username}
@@ -75,6 +89,6 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
-export default connect(mapStateToProps, { fetchCurrentImages })(
+export default connect(mapStateToProps, { fetchCurrentImage, nextImage })(
   withTheme(Lookup)
 );
