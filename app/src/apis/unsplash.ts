@@ -23,4 +23,18 @@ export const fetchPhotos = (page: number) => {
   });
 };
 
+export const fetchSimilarImages = (query: string) => {
+  return unsplash.get("search/photos", {
+    params: { query, per_page: 10 },
+  });
+};
+
+export const fetchPhoto = (imageId: string) => {
+  return unsplash.get(`photos/${imageId}`);
+};
+
+export const fetchRandomImage = () => {
+  return unsplash.get("photos/random");
+};
+
 export default unsplash;

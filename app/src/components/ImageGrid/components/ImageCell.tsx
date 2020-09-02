@@ -2,15 +2,18 @@ import React, { useState } from "react";
 import ImagePlaceholder from "./ImagePlaceholder";
 import Info from "./Info";
 import { Image } from "../../../types";
+import { useDispatch } from "react-redux";
+import { fetchCurrentImage } from "../../../reducers/appReducer";
 
 interface Props {
   observerRef: React.Ref<any> | null;
 
   data: Image;
   isProfile?: boolean;
+  images: Image[];
 }
 
-export default ({ data, observerRef, isProfile }: Props) => {
+export default ({ data, observerRef, isProfile, images }: Props) => {
   const {
     urls,
     user,
@@ -20,12 +23,20 @@ export default ({ data, observerRef, isProfile }: Props) => {
     description,
     width,
     height,
+    id,
   } = data;
   const { username, profile_image } = user;
   const [isLoaded, setIsLoaded] = useState(false);
   const imageHeight = height >= width ? "460px" : "300px";
+  const dispatch = useDispatch();
   return (
-    <div className="cell-container" ref={observerRef}>
+    <div
+      className="cell-container"
+      ref={observerRef}
+      onClick={() => {
+        dispatch(fetchCurrentImage(id, images));
+      }}
+    >
       <img
         onLoad={() => {
           setIsLoaded(true);

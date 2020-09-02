@@ -30,6 +30,7 @@ export default class ImageGrid extends React.Component<Props> {
     return images.map((data, index) => {
       return (
         <ImageCell
+        {...{images}}
           key={data.id}
           observerRef={images.length / 2 === index ? this.callObserver : null}
           data={data}

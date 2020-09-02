@@ -6,7 +6,6 @@ import useLatestImages from "../../hooks/useLatestImages";
 export default () => {
   const [page, setPage] = useState(0);
   const { loading, images } = useLatestImages(page);
-  console.log(images);
   return (
     <Container>
       <ImageGrid
