@@ -10,9 +10,10 @@ interface Props {
 
   data: Image;
   isProfile?: boolean;
+  images:Image[]
 }
 
-export default ({ data, observerRef, isProfile }: Props) => {
+export default ({ data, observerRef, isProfile,images }: Props) => {
   const {
     urls,
     user,
@@ -33,7 +34,7 @@ export default ({ data, observerRef, isProfile }: Props) => {
       className="cell-container"
       ref={observerRef}
       onClick={() => {
-        dispatch(setSelectedImages({ images: [], currentImageId: id }));
+        dispatch(setSelectedImages({ images , currentImageId: id }));
       }}
     >
       <img
