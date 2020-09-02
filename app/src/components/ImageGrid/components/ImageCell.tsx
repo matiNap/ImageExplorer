@@ -3,17 +3,17 @@ import ImagePlaceholder from "./ImagePlaceholder";
 import Info from "./Info";
 import { Image } from "../../../types";
 import { useDispatch } from "react-redux";
-import { setSelectedImages } from "../../../reducers/appReducer";
+import { fetchCurrentImage } from "../../../reducers/appReducer";
 
 interface Props {
   observerRef: React.Ref<any> | null;
 
   data: Image;
   isProfile?: boolean;
-  images:Image[]
+  images: Image[];
 }
 
-export default ({ data, observerRef, isProfile,images }: Props) => {
+export default ({ data, observerRef, isProfile, images }: Props) => {
   const {
     urls,
     user,
@@ -34,7 +34,7 @@ export default ({ data, observerRef, isProfile,images }: Props) => {
       className="cell-container"
       ref={observerRef}
       onClick={() => {
-        dispatch(setSelectedImages({ images , currentImageId: id }));
+        dispatch(fetchCurrentImage(id, images));
       }}
     >
       <img

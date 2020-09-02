@@ -23,9 +23,9 @@ export const fetchPhotos = (page: number) => {
   });
 };
 
-export const fetchSimilarImages = (color: string, query: string) => {
+export const fetchSimilarImages = (query: string) => {
   return unsplash.get("search/photos", {
-    params: { color, query, per_page: 10 },
+    params: { query, per_page: 10 },
   });
 };
 

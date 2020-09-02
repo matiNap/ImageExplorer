@@ -40,6 +40,10 @@ export interface Image {
   width: number;
 }
 
+export interface Tag {
+  type: string;
+  title: string;
+}
 export interface SingleImage extends Image {
   exif: {
     make: string;
@@ -57,4 +61,6 @@ export interface SingleImage extends Image {
       longitude: number;
     };
   };
+  tags: Tag[];
+  downloads: number;
 }

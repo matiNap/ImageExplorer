@@ -1,23 +1,21 @@
-import React, { useState } from "react";
-import {
-  Modal,
-  Paper,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  Button,
-  Dialog,
-} from "@material-ui/core";
+import React from "react";
+import { DialogTitle, Dialog } from "@material-ui/core";
 import InfoLabel from "./InfoLabel";
 import { DISABLED } from "../../../theme";
+import { SingleImage } from "../../../types";
 
 interface Props {
   onClose: () => void;
   opened: boolean;
+  imageData: SingleImage;
 }
 
-export default ({ opened, onClose }: Props) => {
+export default ({ opened, onClose, imageData }: Props) => {
+  const { exif, width, height, created_at, downloads } = imageData;
+  const date = new Date(created_at)
+    .toISOString()
+    .replace(/T/, " ") // replace T with a space
+    .replace(/\..+/, "");
   return (
     <Dialog
       fullWidth={false}
@@ -29,21 +27,18 @@ export default ({ opened, onClose }: Props) => {
       <DialogTitle>
         <p style={{ fontWeight: "bold" }}>Info</p>
         <p className="info-dialog-subtitle" style={{ color: DISABLED }}>
-          Published at 12 Jun 2016
+          {date}
         </p>
       </DialogTitle>
       <div className="info-content-grid">
-        <InfoLabel
-          label="Camera Make"
-          data="daskljdsalk;djaslk;djalkdajsl;daskd;lasjdalk"
-        />
-        <InfoLabel label="Camera Model" data="Nikon" />
-        <InfoLabel label="Focal Length" data="Nikon" />
-        <InfoLabel label="Aperture" data="Nikon" />
-        <InfoLabel label="Shutter Speed" data="Nikon" />
-        <InfoLabel label="ISO" data="Nikon" />
-        <InfoLabel label="Dimensions" data="Nikon" />
-        <InfoLabel label="Downloads" data="1468" />
+        <InfoLabel label="Camera Make" data={exif.make} />
+        <InfoLabel label="Camera Model" data={exif.model} />
+        <InfoLabel label="Focal Length" data={`${exif.focal_length}mm`} />
+        <InfoLabel label="Aperture" data={exif.aperture} />
+        <InfoLabel label="Shutter Speed" data={`${exif.exposure_time}s`} />
+        <InfoLabel label="ISO" data={`${exif.iso}`} />
+        <InfoLabel label="Dimensions" data={`${width} x ${height}`} />
+        <InfoLabel label="Downloads" data={`${downloads}`} />
       </div>
     </Dialog>
   );

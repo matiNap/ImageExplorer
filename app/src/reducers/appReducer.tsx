@@ -1,23 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Image, SingleImage } from "../types";
-import { AppThunk } from "../store";
+import { AppThunk, RootState } from "../store";
 import history from "../history";
 import { PHOTOS } from "../navRoutes";
 import { fetchPhoto, fetchRandomImage } from "../apis/unsplash";
 import _ from "lodash";
 
 const INIT_STATE: {
-  selected: {
-    currentImageId: string;
-    images: Image[] | null;
-  } | null;
+  selectedImages: Image[] | null;
+  moving: boolean;
   selectedData: {
     loading: boolean;
     error: boolean;
     data: null | SingleImage;
   };
 } = {
-  selected: null,
+  selectedImages: null,
+  moving: false,
   selectedData: {
     loading: true,
     error: false,
@@ -29,48 +28,91 @@ const appSlice = createSlice({
   name: "app",
   initialState: INIT_STATE,
   reducers: {
-    setSelectedImages: (state, action) => {
-      history.push(`${PHOTOS}/${action.payload.currentImageId}`);
-      state.selected = action.payload;
-    },
     setSelectedData: (state, action) => {
+      state.selectedImages = action.payload.images;
       state.selectedData = { ...state.selectedData, ...action.payload };
+    },
+    setMoving: (state, action) => {
+      state.moving = action.payload;
     },
   },
 });
 
-export const { setSelectedImages, setSelectedData } = appSlice.actions;
+export const { setSelectedData, setMoving } = appSlice.actions;
 
 export default appSlice.reducer;
 
-export const fetchCurrentImage = (imageId: string) => async (dispatch) => {
+export const fetchCurrentImage = (
+  imageId: string,
+  images: Image[] | null
+) => async (dispatch) => {
   dispatch(setSelectedData({ loading: true }));
+  dispatch(setMoving(true));
   try {
     const { data } = await fetchPhoto(imageId);
-    console.log("Data", data);
-    dispatch(setSelectedData({ data, loading: false }));
+    history.push(`${PHOTOS}/${imageId}`);
+    dispatch(setSelectedData({ data, loading: false, images }));
+    dispatch(setMoving(false));
   } catch {
     dispatch(setSelectedData({ error: false }));
   }
 };
 
-export const nextImage = (): AppThunk => async (dispatch, getState) => {
-  const currentImages = getState()?.app?.selected?.images;
+const fetchRandomSelectedImages = (): AppThunk => async (dispatch) => {
+  try {
+    dispatch(setSelectedData({ loading: true }));
+    const { data: randomImageData } = await fetchRandomImage();
+    const { data } = await fetchPhoto(randomImageData.id);
+
+    dispatch(setSelectedData({ loading: false, data }));
+  } catch {
+    dispatch(setSelectedData({ error: true }));
+  }
+};
+
+const getSelected = (state: RootState) => {
+  const appState = state.app;
+  const currentImages = appState.selectedImages;
+  const currentImageId = appState.selectedData.data?.id;
+
+  return { currentImages, currentImageId };
+};
+
+export const prevImage = (): AppThunk => async (dispatch, getState) => {
+  const { currentImages, currentImageId } = getSelected(getState());
 
   if (currentImages) {
-    const currentIndex = _.findIndex(currentImages);
+    const currentIndex = _.findIndex(
+      currentImages,
+      (image) => currentImageId === image.id
+    );
+    if (currentIndex !== -1 && currentIndex - 1 > 0) {
+      const nextImageId = currentImages[currentIndex - 1].id;
 
-    const currentImageId = currentImages[currentIndex + 1].id;
-    console.log("Id", currentImageId);
-    dispatch(fetchCurrentImage(currentImageId));
-  } else {
-    try {
-      dispatch(setSelectedData({ loading: true }));
-      const { data } = await fetchRandomImage();
-
-      dispatch(setSelectedData({ loading: false, data }));
-    } catch {
-      dispatch(setSelectedData({ error: true }));
+      dispatch(fetchCurrentImage(nextImageId, currentImages));
     }
+  } else {
+    dispatch(fetchRandomSelectedImages());
+  }
+};
+
+export const nextImage = (): AppThunk => async (dispatch, getState) => {
+  const { currentImages, currentImageId } = getSelected(getState());
+
+  if (currentImages) {
+    const currentIndex = _.findIndex(
+      currentImages,
+      (image) => currentImageId === image.id
+    );
+
+    if (currentIndex !== -1 && currentIndex + 1 < currentImages.length) {
+      const nextImageId = currentImages[currentIndex + 1].id;
+
+      dispatch(fetchCurrentImage(nextImageId, currentImages));
+    } else {
+      dispatch(fetchRandomSelectedImages());
+    }
+  } else {
+    dispatch(fetchRandomSelectedImages());
   }
 };
