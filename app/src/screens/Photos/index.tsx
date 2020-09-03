@@ -19,17 +19,19 @@ export default (props) => {
   const color = selectedImage ? selectedImage.color : null;
   const query = selectedImage ? getTags(selectedImage.tags) : null;
 
-  const { similarImages, loading } = useSimiliarImages(color, query);
+  const { similarImages, loading, error } = useSimiliarImages(color, query);
   const photoId = props.match.params.photoId;
 
   return (
     <div className="photos-container">
       <Lookup {...{ photoId }} />
-      <ImageGrid
-        images={similarImages}
-        {...{ loading }}
-        loadImages={() => {}}
-      />
+      {!error && (
+        <ImageGrid
+          images={similarImages}
+          {...{ loading }}
+          loadImages={() => {}}
+        />
+      )}
     </div>
   );
 };

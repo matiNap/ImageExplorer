@@ -46,15 +46,15 @@ export const fetchCurrentImage = (
   imageId: string,
   images: Image[] | null
 ) => async (dispatch) => {
-  dispatch(setSelectedData({ loading: true }));
+  dispatch(setSelectedData({ loading: true, error: false }));
   dispatch(setMoving(true));
   try {
     const { data } = await fetchPhoto(imageId);
     history.push(`${PHOTOS}/${imageId}`);
     dispatch(setSelectedData({ data, loading: false, images }));
     dispatch(setMoving(false));
-  } catch {
-    dispatch(setSelectedData({ error: false }));
+  } catch (error) {
+    dispatch(setSelectedData({ error: true }));
   }
 };
 
