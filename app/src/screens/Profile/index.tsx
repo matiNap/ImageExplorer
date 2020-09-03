@@ -5,6 +5,7 @@ import Container from "../../components/Container";
 import UserPhotos from "./components/UserPhotos";
 import { fetchUserData } from "../../apis/unsplash";
 import { User } from "../../types";
+import { DISABLED } from "../../theme";
 
 interface Props {
   match: {
@@ -18,12 +19,14 @@ interface Props {
 interface State {
   loading: boolean;
   user: User | null;
+  error: boolean;
 }
 
 class Profile extends React.Component<Props, State> {
   state = {
     user: null,
     loading: true,
+    error: false,
   };
   componentDidMount() {
     const {
@@ -32,9 +35,13 @@ class Profile extends React.Component<Props, State> {
       },
     } = this.props;
 
-    fetchUserData(userId).then(({ data }) => {
-      this.setState({ user: data, loading: false });
-    });
+    fetchUserData(userId)
+      .then(({ data }) => {
+        this.setState({ user: data, loading: false });
+      })
+      .catch(() => {
+        this.setState({ error: true });
+      });
   }
   render() {
     const {
@@ -42,13 +49,22 @@ class Profile extends React.Component<Props, State> {
         params: { userId },
       },
     } = this.props;
-    const { user, loading } = this.state;
-    return (
-      <Container>
-        <UserInfo {...{ user, loading }} />
-        <UserPhotos {...{ userId }} />
-      </Container>
-    );
+    const { user, loading, error } = this.state;
+    if (!error) {
+      return (
+        <Container>
+          <UserInfo {...{ user, loading }} />
+          <UserPhotos {...{ userId }} />
+        </Container>
+      );
+    } else
+      return (
+        <Container>
+          <div className="error-placeholder-container">
+            <h1 style={{ color: DISABLED }}>User doest not exist</h1>
+          </div>
+        </Container>
+      );
   }
 }
 

@@ -15,8 +15,9 @@ import {
 } from "../../../reducers/appReducer";
 import { RootState } from "../../../store";
 import { SingleImage, Image } from "../../../types";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { FiChevronLeft, FiChevronRight, FiImage } from "react-icons/fi";
 import LookupPlaceholder from "./LookupPlaceholder";
+import { DISABLED } from "../../../theme";
 
 interface Props {
   fetchCurrentImage: any;
@@ -47,8 +48,9 @@ class Lookup extends React.Component<Props> {
   render() {
     const { infoOpened } = this.state;
     const { palette } = this.props.theme;
-    const { data, loading } = this.props.currentImage;
-    if (!loading && data) {
+    const { data, loading, error } = this.props.currentImage;
+
+    if (!loading && data && !error) {
       const {
         urls: { full: imgUrl },
         links: { download },
@@ -105,10 +107,17 @@ class Lookup extends React.Component<Props> {
           </div>
         </div>
       );
-    } else {
+    } else if (loading && !error) {
       return (
         <div className="lookup-placeholder-container">
           <LookupPlaceholder />
+        </div>
+      );
+    } else {
+      return (
+        <div className="error-placeholder-container">
+          <FiImage size={100} color={DISABLED} />
+          <h1 style={{ color: DISABLED }}>This image does not exist</h1>
         </div>
       );
     }
