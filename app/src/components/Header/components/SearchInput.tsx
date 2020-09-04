@@ -21,7 +21,7 @@ export default () => {
         className="search-input"
         onKeyDown={(e) => {
           if (e.key === "Enter")
-            history.push(`${SEARCH_PHOTOS}?search=${value}`);
+            history.push(`${SEARCH_PHOTOS}?query=${value}`);
         }}
       />
     </div>
