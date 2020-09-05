@@ -1,10 +1,9 @@
-import React, { useState, useMemo, useCallback, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Typography } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { useTheme } from "@material-ui/styles";
 import { FiChevronDown } from "react-icons/fi";
 import * as qs from "qs";
-import { current } from "@reduxjs/toolkit";
 import _ from "lodash";
 
 interface Item {
@@ -32,15 +31,16 @@ const createSearch = (
 
   if (value.length === 0) {
     return `?query=${params["query"]}`;
-  } else if (!params[key]) {
-    return `?${qs.stringify({ ...params })}` + `&${value}`;
-  } else return `?${qs.stringify({ ...params })}` + `&${value}`;
+  } else {
+    if (params[key]) delete params[key];
+    return `?${qs.stringify(params)} &${value}`;
+  }
 };
 
 export default ({ renderContent, valueKey, defaultValue, items }: Props) => {
   const history = useHistory();
   const {
-    location: { pathname, search },
+    location: { search },
   } = history;
 
   const [currentValue, setCurrentValue] = useState("");
@@ -57,14 +57,11 @@ export default ({ renderContent, valueKey, defaultValue, items }: Props) => {
         ? items[currentIndex].label
         : defaultValue;
     setCurrentValue(value);
-  }, [search]);
+  }, [search, items, defaultValue, valueKey]);
 
   const [selecting, setSelecting] = useState(false);
   const { palette } = useTheme();
 
-  const setValue = useCallback((value: string) => {
-    history.push(createSearch(search, value, valueKey));
-  }, []);
   return (
     <div className="dropdown" onClick={() => setSelecting(!selecting)}>
       <div className="dropdown-selected-value-container">
@@ -85,7 +82,9 @@ export default ({ renderContent, valueKey, defaultValue, items }: Props) => {
         style={{ backgroundColor: palette.secondary.text }}
       >
         {renderContent({
-          setValue,
+          setValue: (value: string) => {
+            history.push(createSearch(search, value, valueKey));
+          },
         })}
       </div>
     </div>

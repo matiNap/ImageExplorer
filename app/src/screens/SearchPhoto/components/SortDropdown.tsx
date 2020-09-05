@@ -5,20 +5,12 @@ import DropdownItem from "./DropdownItem";
 
 const items = [
   {
-    value: "",
-    label: "Any orientation",
+    value: "order_by=relevant",
+    label: "Relevence",
   },
   {
-    value: "orientation=portrait",
-    label: "Portrait",
-  },
-  {
-    label: "Landscape",
-    value: "orientation=landscape",
-  },
-  {
-    label: "Squarish",
-    value: "orientation=squarish",
+    value: "order_by=latest",
+    label: "Newest",
   },
 ];
 
@@ -26,8 +18,8 @@ export default () => {
   return (
     <Dropdown
       items={items}
-      defaultValue="Any orientation"
-      valueKey="orientation"
+      defaultValue="Relevence"
+      valueKey="order_by"
       renderContent={({ setValue }) => {
         return items.map(({ value, label }) => (
           <DropdownItem

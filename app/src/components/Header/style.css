@@ -5,10 +5,23 @@
   align-items: center;
 }
 
+.search-input {
+  margin-left: 2.5rem;
+}
+
+.search-input-icon {
+  position: absolute;
+}
+
+.search-delete-container {
+  width: 1rem;
+}
+
 @media only screen and (min-width: 800px) {
   .header-container {
     padding-left: 7rem;
     padding-right: 7rem;
+    min-width: 40%;
     justify-content: space-between;
     -webkit-box-shadow: 0px -2px 26px -2px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px -2px 26px -2px rgba(0, 0, 0, 0.75);
@@ -28,7 +41,7 @@
 
   .search-input {
     width: 25vw;
-    margin-left: 0.8rem;
+
     font-family: Roboto;
     background-color: transparent;
     font-size: 1rem;
@@ -58,6 +71,7 @@
     padding-right: 0.5rem;
     justify-content: space-between;
   }
+
   .header-nav-buttons {
     display: none;
   }
