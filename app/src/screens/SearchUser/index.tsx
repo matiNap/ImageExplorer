@@ -30,7 +30,7 @@ export default () => {
       .catch(() => {
         setError(true);
       });
-  }, [search]);
+  }, [search, page, params, users]);
   return (
     <Container>
       <SearchNav />

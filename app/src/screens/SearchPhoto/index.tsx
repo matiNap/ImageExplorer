@@ -47,7 +47,7 @@ export default () => {
       .catch(() => {
         setError(true);
       });
-  }, [search, page]);
+  }, [search, page, images]);
 
   return (
     <Container>

@@ -1,20 +1,18 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import { FiSearch, FiX } from "react-icons/fi";
 import { useTheme } from "@material-ui/styles";
-import { SEARCH_PHOTOS } from "../../../navRoutes";
+import { SEARCH_PHOTOS, SEARCH_USER } from "../../../navRoutes";
+import useQueryParam from "../../../hooks/useQueryParam";
 import { useHistory } from "react-router-dom";
-import * as qs from "qs";
 
 export default () => {
   const [value, setValue] = useState("");
   const { palette } = useTheme();
   const history = useHistory();
-
   const {
-    location: { search },
+    location: { pathname },
   } = history;
-  const params = qs.parse(search, { ignoreQueryPrefix: true });
-  const query = params["query"];
+  const query = useQueryParam();
   useMemo(() => {
     if (query) setValue(query);
   }, [query]);
@@ -35,7 +33,11 @@ export default () => {
         className="search-input"
         onKeyDown={(e) => {
           if (e.key === "Enter")
-            history.push(`${SEARCH_PHOTOS}?query=${value}`);
+            history.push(
+              `${
+                pathname === SEARCH_USER ? SEARCH_USER : SEARCH_PHOTOS
+              }?query=${value}`
+            );
         }}
       />
       <div className="search-delete-container">
