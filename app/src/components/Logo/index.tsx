@@ -1,5 +1,4 @@
 import React from "react";
-// import { useTheme } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import "./style.css";
 import { MAIN } from "../../navRoutes";

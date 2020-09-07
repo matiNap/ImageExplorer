@@ -86,20 +86,6 @@
   margin-left: 0.5rem;
 }
 
-.lookup-next-image {
-  position: absolute;
-  top: 55%;
-  left: 1rem;
-  cursor: pointer;
-}
-
-.lookup-prev-image {
-  position: absolute;
-  top: 55%;
-  right: 1rem;
-  cursor: pointer;
-}
-
 .lookup-avatar-img {
   width: 3.2rem !important;
   height: 3.2rem !important;
@@ -156,6 +142,19 @@
     border-width: 0;
     box-shadow: none !important;
   }
+  .lookup-next-image {
+    position: absolute;
+    top: 55%;
+    left: 1rem;
+    cursor: pointer;
+  }
+
+  .lookup-prev-image {
+    position: absolute;
+    top: 55%;
+    right: 1rem;
+    cursor: pointer;
+  }
 }
 
 @media only screen and (max-width: 800px) {
@@ -163,5 +162,13 @@
     max-width: 86vw;
     max-height: 80vh;
     object-fit: contain;
+  }
+
+  .lookup-next-image {
+    display: none;
+  }
+
+  .lookup-prev-image {
+    display: none;
   }
 }
