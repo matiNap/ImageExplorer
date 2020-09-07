@@ -11,6 +11,7 @@ import * as qs from "qs";
 import ImageGrid from "../../components/ImageGrid";
 import { DISABLED } from "../../theme";
 import { Image } from "../../types";
+import useSearchPhotos from "../../hooks/useSearchPhotos";
 
 const renderInfoPlaceholder = (
   images: null | any[],
@@ -36,27 +37,12 @@ export default () => {
   const {
     location: { search },
   } = useHistory();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [images, setImages] = useState<Image[] | null>(null);
   const [page, setPage] = useState(0);
 
-  useEffect(() => {
-    setError(false);
-    setLoading(true);
-    if (!loading) {
-      searchPhotos(qs.parse(search, { ignoreQueryPrefix: true }), page)
-        .then(({ data }) => {
-          setLoading(false);
-          const prevImages = images ? images : [];
-          setImages([...prevImages, ...data.results]);
-        })
-        .catch(() => {
-          setError(true);
-        });
-    }
-    // eslint-disable-next-line
-  }, [search, page]);
+  const { images, loading, error } = useSearchPhotos(
+    qs.parse(search, { ignoreQueryPrefix: true }),
+    page
+  );
 
   return (
     <Container>

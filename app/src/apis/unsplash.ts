@@ -37,7 +37,10 @@ export const fetchRandomImage = () => {
   return unsplash.get("photos/random");
 };
 
-export const searchPhotos = (params: any, page: number) => {
+export const searchPhotos = (
+  params: { page?: string; color?: string },
+  page: number
+) => {
   return unsplash.get("search/photos", {
     params: {
       ...params,
@@ -52,6 +55,15 @@ export const searchUsers = (query: string) => {
     params: {
       query,
       per_page: 10,
+    },
+  });
+};
+
+export const fetchTopicImage = (query: string) => {
+  return unsplash.get("search/photos", {
+    params: {
+      query,
+      per_page: 1,
     },
   });
 };

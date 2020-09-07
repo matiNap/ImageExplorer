@@ -9,10 +9,11 @@ import {
   PHOTOS,
   SEARCH_USER,
   SEARCH_PHOTOS,
+  TOPIC,
 } from "./navRoutes";
 import theme from "./theme";
 import withNavigation from "./hocs/withNavigation";
-import Topics from "./screens/Topic";
+import Topics from "./screens/Topics";
 import Profile from "./screens/Profile";
 import Photos from "./screens/Photos";
 import { Provider } from "react-redux";
@@ -20,6 +21,7 @@ import store from "../src/store";
 import history from "./history";
 import SearchPhoto from "./screens/SearchPhoto";
 import SearchUser from "./screens/SearchUser";
+import Topic from "./screens/Topic";
 
 export default () => {
   return (
@@ -57,6 +59,11 @@ export default () => {
               exact
               path={`${PHOTOS}/:photoId`}
               component={withNavigation(Photos)}
+            />
+            <Route
+              exact
+              path={`${TOPIC}/:topicName`}
+              component={withNavigation(Topic)}
             />
           </Switch>
         </Router>
