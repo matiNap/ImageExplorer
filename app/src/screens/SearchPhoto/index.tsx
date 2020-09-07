@@ -12,8 +12,12 @@ import ImageGrid from "../../components/ImageGrid";
 import { DISABLED } from "../../theme";
 import { Image } from "../../types";
 
-const renderInfoPlaceholder = (images: null | any[], error: boolean) => {
-  if (images && images.length === 0) {
+const renderInfoPlaceholder = (
+  images: null | any[],
+  error: boolean,
+  loading: boolean
+) => {
+  if (images && images.length === 0 && !loading) {
     return (
       <div className="error-placeholder-container">
         <h1 style={{ color: DISABLED }}>Can not find matching photos</h1>
@@ -34,20 +38,25 @@ export default () => {
   } = useHistory();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [images, setImages] = useState<Image[]>([]);
+  const [images, setImages] = useState<Image[] | null>(null);
   const [page, setPage] = useState(0);
 
   useEffect(() => {
     setError(false);
-    searchPhotos(qs.parse(search, { ignoreQueryPrefix: true }), page)
-      .then(({ data }) => {
-        setLoading(false);
-        setImages([...images, ...data.results]);
-      })
-      .catch(() => {
-        setError(true);
-      });
-  }, [search, page, images]);
+    setLoading(true);
+    if (!loading) {
+      searchPhotos(qs.parse(search, { ignoreQueryPrefix: true }), page)
+        .then(({ data }) => {
+          setLoading(false);
+          const prevImages = images ? images : [];
+          setImages([...prevImages, ...data.results]);
+        })
+        .catch(() => {
+          setError(true);
+        });
+    }
+    // eslint-disable-next-line
+  }, [search, page]);
 
   return (
     <Container>
@@ -66,7 +75,7 @@ export default () => {
           }}
         />
       )}
-      {renderInfoPlaceholder(images, error)}
+      {renderInfoPlaceholder(images, error, loading)}
     </Container>
   );
 };

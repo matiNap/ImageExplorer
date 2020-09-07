@@ -4,6 +4,7 @@ import "./style.css";
 import { CircularProgress } from "@material-ui/core";
 import ImageCell from "./components/ImageCell";
 import Masonry from "react-masonry-css";
+import Loader from "../Loader";
 
 interface Props {
   loadImages: () => void;
@@ -30,7 +31,7 @@ export default class ImageGrid extends React.Component<Props> {
     return images.map((data, index) => {
       return (
         <ImageCell
-        {...{images}}
+          {...{ images }}
           key={data.id}
           observerRef={images.length / 2 === index ? this.callObserver : null}
           data={data}
@@ -73,11 +74,6 @@ export default class ImageGrid extends React.Component<Props> {
           )}
         </div>
       );
-    } else
-      return (
-        <div className="image-grid-progress">
-          <CircularProgress color="primary" size={50} />
-        </div>
-      );
+    } else return <Loader />;
   }
 }

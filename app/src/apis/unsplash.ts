@@ -47,11 +47,10 @@ export const searchPhotos = (params: any, page: number) => {
   });
 };
 
-export const searchUsers = (query: string, page: number) => {
+export const searchUsers = (query: string) => {
   return unsplash.get("search/users", {
     params: {
       query,
-      page,
       per_page: 10,
     },
   });
