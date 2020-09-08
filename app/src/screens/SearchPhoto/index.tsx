@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Container from "../../components/Container";
 import SearchNav from "../../components/SearchNav";
 import ColorDropdown from "./components/ColorDropdown";
@@ -6,11 +6,9 @@ import OrientationDropdown from "./components/OrientationDropdown";
 import "./style.css";
 import SortDropdown from "./components/SortDropdown";
 import { useHistory } from "react-router-dom";
-import { searchPhotos } from "../../apis/unsplash";
 import * as qs from "qs";
 import ImageGrid from "../../components/ImageGrid";
 import { DISABLED } from "../../theme";
-import { Image } from "../../types";
 import useSearchPhotos from "../../hooks/useSearchPhotos";
 
 const renderInfoPlaceholder = (

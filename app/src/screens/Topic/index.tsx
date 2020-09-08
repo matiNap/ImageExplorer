@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Container from "../../components/Container";
 import useSearchPhotos from "../../hooks/useSearchPhotos";
 import ImageGrid from "../../components/ImageGrid";
-import { useHistory } from "react-router-dom";
 
 interface Props {
   match: {

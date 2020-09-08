@@ -13,6 +13,10 @@ interface Props {
   title: string;
 }
 
+const formatMaxImages = (num: number) => {
+  return num >= 1000 ? `${Math.floor(num / 1000)}k` : `${num}`;
+};
+
 export default ({ query, title }: Props) => {
   const { palette } = useTheme();
   const [maxImages, setMaxImages] = useState(0);
@@ -49,7 +53,7 @@ export default ({ query, title }: Props) => {
                 className="topic-image-icon"
               />
               <p style={{ color: DISABLED }} className="topics-images-text">
-                {`${maxImages} contributions`}
+                {`${formatMaxImages(maxImages)} contributions`}
               </p>
             </div>
           ) : (

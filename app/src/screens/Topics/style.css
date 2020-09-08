@@ -31,6 +31,7 @@
 
 .topic-image {
   width: 100%;
+  object-fit: cover;
 }
 
 .topics-images-text {
