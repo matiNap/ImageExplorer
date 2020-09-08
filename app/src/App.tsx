@@ -24,7 +24,6 @@ import SearchUser from "./screens/SearchUser";
 import Topic from "./screens/Topic";
 
 export default () => {
-  console.log(process.env.REACT_APP_ACCESS_KEY);
   return (
     <Provider {...{ store }}>
       <ThemeProvider theme={theme}>
