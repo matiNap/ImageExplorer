@@ -12,6 +12,7 @@ interface Props {
   avatarUri: string;
   isProfile?: boolean;
   likes: number;
+  onImageClick: () => void;
 }
 
 export default ({
@@ -20,10 +21,11 @@ export default ({
   username,
   avatarUri,
   likes,
+  onImageClick,
 }: Props) => {
   const { palette } = useTheme();
   return (
-    <div className="image-grid-info">
+    <div className="image-grid-info" onClick={onImageClick}>
       <div className="info-container">
         <div>
           {!isProfile && (

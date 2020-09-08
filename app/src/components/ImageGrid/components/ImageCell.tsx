@@ -30,13 +30,7 @@ export default ({ data, observerRef, isProfile, images }: Props) => {
   const imageHeight = height >= width ? "460px" : "300px";
   const dispatch = useDispatch();
   return (
-    <div
-      className="cell-container"
-      ref={observerRef}
-      onClick={() => {
-        dispatch(fetchCurrentImage(id, images));
-      }}
-    >
+    <div className="cell-container" ref={observerRef}>
       <img
         onLoad={() => {
           setIsLoaded(true);
@@ -46,7 +40,9 @@ export default ({ data, observerRef, isProfile, images }: Props) => {
         alt={description}
         className="cell-image"
       />
+
       <Info
+        onImageClick={() => dispatch(fetchCurrentImage(id, images))}
         likes={likes}
         isProfile={isProfile}
         avatarUri={profile_image.small}
