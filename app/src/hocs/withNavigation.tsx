@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Header from "../components/Header";
 import Drawer from "../components/Drawer";
+import Footer from "../components/Footer";
 
 export default (HigerComponent: React.ComponentType<any>) => {
   return (props) => {
@@ -10,6 +11,7 @@ export default (HigerComponent: React.ComponentType<any>) => {
         <Header {...{ setHidden }} />
         <Drawer {...{ setHidden, hidden }} />
         <HigerComponent {...props} />
+        <Footer />
       </div>
     );
   };

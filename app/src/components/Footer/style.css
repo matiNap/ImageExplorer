@@ -1,0 +1,41 @@
+.footer-container {
+  background-color: #303030;
+  padding: 5rem 3rem 4rem 3rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.footer-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.footer-nav-text {
+  margin-left: 1.5rem !important;
+  text-decoration-line: underline;
+}
+
+.footer-contact {
+  display: grid;
+  grid-template-columns: auto auto;
+  width: 30rem;
+  margin-top: 3rem;
+}
+
+.footer-contact-text {
+  font-size: 1.05rem !important;
+}
+
+.footer-contact-text.email {
+  text-decoration-line: underline;
+}
+
+.footer-note {
+  margin-top: 4rem;
+}
+
+.footer-note-text {
+  font-size: 0.98rem !important;
+}
