@@ -1,14 +1,10 @@
 import React from "react";
-// import NavigationLink from "../NavigationLink";
 import { useTheme } from "@material-ui/styles";
 import { GoChevronLeft } from "react-icons/go";
 import "./style.css";
 import { SwipeableDrawer, Avatar } from "@material-ui/core";
 import NavigationLink from "../NavigationLink";
 import { MAIN, TOPICS } from "../../navRoutes";
-// import SignInButton from "../SignInButton";
-// import GuestButton from "../GuestButton";
-// import { FiLogOut } from "react-icons/fi";
 
 interface Props {
   hidden: boolean;
@@ -20,60 +16,45 @@ export default ({ hidden, setHidden }: Props) => {
   const { palette } = useTheme();
   const signedIn = false;
   return (
-    <div className={`drawer-container`}>
-      <SwipeableDrawer
-        open={!hidden}
-        onClose={() => setHidden(true)}
-        onOpen={() => setHidden(false)}
+    <SwipeableDrawer
+      open={!hidden}
+      onClose={() => setHidden(true)}
+      onOpen={() => setHidden(false)}
+    >
+      <div
+        className="drawer-content"
+        style={{ backgroundColor: palette.secondary.main }}
       >
-        <div
-          className="drawer-content"
-          style={{ backgroundColor: palette.secondary.main }}
-        >
-          <div className="drawer-header">
-            <div>
-              {signedIn && (
-                <Avatar
-                  alt="Profile"
-                  src={BLANK_IMAGE}
-                  className="drawer-avatar"
-                />
-              )}
-            </div>
-            <GoChevronLeft
-              onClick={() => setHidden(true)}
-              size={40}
-              color={palette.text.primary}
-              className="drawer-hide-icon"
-            />
+        <div className="drawer-header">
+          <div>
+            {signedIn && (
+              <Avatar
+                alt="Profile"
+                src={BLANK_IMAGE}
+                className="drawer-avatar"
+              />
+            )}
           </div>
-          <ul className="drawer-list">
-            <li>
-              <NavigationLink to={MAIN} className="drawer-list-item">
-                Home
-              </NavigationLink>
-            </li>
-            <li>
-              <NavigationLink to={TOPICS} className="drawer-list-item">
-                Topics
-              </NavigationLink>
-            </li>
-            {/* <li style={{ marginTop: "auto" }}>
-              {signedIn ? (
-                <div className="drawer-footer">
-                  <FiLogOut size={35} style={{ color: palette.text.primary }} />
-                  <h3 style={{ marginLeft: "1rem" }}>Log out</h3>
-                </div>
-              ) : (
-                <div className="drawer-footer">
-                  <SignInButton />
-                  <GuestButton />
-                </div>
-              )}
-            </li> */}
-          </ul>
+          <GoChevronLeft
+            onClick={() => setHidden(true)}
+            size={40}
+            color={palette.text.primary}
+            className="drawer-hide-icon"
+          />
         </div>
-      </SwipeableDrawer>
-    </div>
+        <ul className="drawer-list">
+          <li>
+            <NavigationLink to={MAIN} className="drawer-list-item">
+              Home
+            </NavigationLink>
+          </li>
+          <li>
+            <NavigationLink to={TOPICS} className="drawer-list-item">
+              Topics
+            </NavigationLink>
+          </li>
+        </ul>
+      </div>
+    </SwipeableDrawer>
   );
 };
