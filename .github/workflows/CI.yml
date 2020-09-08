@@ -26,12 +26,10 @@ jobs:
         
     - name: Install packages
       run: yarn install
-#     - name: Test
-#       run: |
-#           yarn run test
-#           yarn run tsc
-#           yarn run lint
+      
     - name: Build
+      env:
+         REACT_APP_ACCESS_KEY: ${{ secrets.UNSPLASH_KEY }}
       run: npm run build
       
     - name: Deploy
@@ -40,7 +38,6 @@ jobs:
           user_email: 'github-actions[bot]@users.noreply.github.com'
           github_token: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
           repository: ${{ github.repository }}
-          REACT_APP_ACCESS_KEY: ${{ secrets.UNSPLASH_KEY }}
       run: |
           git config --global user.name $user_name
           git config --global user.email $user_email
